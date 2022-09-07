@@ -39,7 +39,7 @@ end
 
 function MakePartChams(Parent,Name,Part)
     local Highlight = Instance.new("Highlight",Parent)
-    Highlight.Adornee = Parent
+    Highlight.Adornee = Part
     
     return Chams
 end
