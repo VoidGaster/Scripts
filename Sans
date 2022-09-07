@@ -1,4 +1,6 @@
---// This is a version of https://raw.githubusercontent.com/rinqedd/rblx/main/Libs/ESP%20Library specifically for Afterglow.
+--// Work In Progress - Unfinished
+
+--// TODO: I have no clue what to do
 
 --// rinq#9949
 
@@ -35,37 +37,37 @@ function MakeText(Parent,Text)
     return ESPText
 end
 
-function MakeChams(Parent,Name,Model)
+function MakePartChams(Parent,Name,Part)
+    local Chams = Instance.new("BoxHandleAdornment",Parent)
+    Chams.Name = Name
+    Chams.Adornee = Part
+    Chams.AlwaysOnTop = true
+    Chams.ZIndex = 10
+    Chams.Size = Part.Size
+    Chams.Transparency = 0.4
+    
+    return Chams
+end
+
+function MakeChams(Parent,Name,Player)
     local Highlight = Instance.new("Highlight",Parent)
-    Highlight.Adornee = Model
+    Highlight.Adornee = Player.Character
     
     return Hightlight
 end
 
-function ESPLibrary:ItemESP(Model,Text,Chams,Studs)
-    for _,Base in pairs(Model:GetChildren()) do
-        if Base:IsA("BasePart") and Base.Transparency ~= 1 then
-            Base.Transparency = 0
-        end
-    end
-    local PosPart = Model:FindFirstChildWhichIsA("BasePart")
-    if not Text then Text = "" end
-    if not Chams then Chams = true end
-    if not Studs then Studs = true end
-
+function ESPLibrary:PartESP(Part,Text,Chams,Studs)
     local Holder = Instance.new("Folder",ESPHolder)
-    Holder.Name = (Model.Name.."Holder")
+    Holder.Name = (Part.Name.."Holder")
     
     if Text ~= "" then
-        local BillboardGui = MakeBBGui(Holder,Model.Name.."TEXT",Model)
+        local BillboardGui = MakeBBGui(Holder,Part.Name.."TEXT",Part)
         local ESPText = MakeText(BillboardGui,Text)
         if Studs then
-            ESPText.Text = Text.."\nDistance: "..tostring(math.floor((Player.Character.HumanoidRootPart.Position-PosPart.Position).magnitude))
+            ESPText.Text = Text.."\nDistance: "..tostring(math.floor((Player.Character.HumanoidRootPart.Position-Part.Position).magnitude))
             spawn(function()
-                while wait(0.2) and ESPText do
-                    if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
-                        ESPText.Text = Text.."\nDistance: "..tostring(math.floor((Player.Character.HumanoidRootPart.Position-PosPart.Position).magnitude))
-                    end
+                while wait(0.1) and ESPText do
+                    ESPText.Text = Text.."\nDistance: "..tostring(math.floor((Player.Character.HumanoidRootPart.Position-Part.Position).magnitude))
                 end
             end)
         end
@@ -76,18 +78,18 @@ function ESPLibrary:ItemESP(Model,Text,Chams,Studs)
     end
     
     if Chams then
-        local Cham = MakeChams(Holder,Model.Name.."CHAMS",Model)
+        local Cham = MakeChams(Holder,Part.Name.."CHAMS",Part)
     end
     
-    Model.Parent.ChildRemoved:Connect(function(Removed)
-        if Model == Removed then
+    Part.Parent.ChildRemoved:Connect(function(Removed)
+        if Part == Removed then
             Holder:Destroy()
-            table.remove(Instances,table.find(Instances,Model))
+            table.remove(Instances,table.find(Instances,Part))
         end
     end)
     
-    table.insert(Instances,Model)
-    Instances[Model] = Holder
+    table.insert(Instances,Part)
+    Instances[Part] = Holder
 end
 
 function ESPLibrary:PlayerESP(Player,ShowName,Chams)
@@ -99,23 +101,26 @@ function ESPLibrary:PlayerESP(Player,ShowName,Chams)
     local Holder = Instance.new("Folder",ESPHolder)
     Holder.Name = Player.Name.."Holder"
     
-    local BillboardGui = MakeBBGui(Holder,Player.Name.."TEXT",Character:FindFirstChild("Head"))
-    local ESPText = MakeText(BillboardGui,"Name: "..Player.Name.."\nHealth: "..tostring(math.floor(Character.Health.Value)))
-    
-    Character.Health:GetPropertyChangedSignal("Value"):Connect(function()
-        ESPText.Text = "Name: "..Player.Name.."\nHealth: "..tostring(math.floor(Character.Health.Value))
-    end)
-    
-    if Chams then
-        local Cham = MakeChams(Holder,Player.Name.."CHAMS",Character)
+    for i,v in pairs(Character:GetChildren()) do
+        if v:IsA("BasePart") and v.Name == "Head" and ShowName then
+            local BillboardGui = MakeBBGui(Holder,v.Name.."TEXT",v)
+            local ESPText = MakeText(BillboardGui,"Name: "..Player.Name.."\nHealth: "..Character.Humanoid.Health)
+            Character.Humanoid:GetPropertyChangedSignal("Health"):Connect(function()
+                ESPText.Text = "Name: "..Player.Name.."\nHealth: "..Character.Humanoid.Health
+            end)
+        end
+        
+        Character.Parent.ChildRemoved:Connect(function(Char)
+            if Character == Char then
+                Holder:Destroy()
+                table.remove(Instances,table.find(Instances,Player))
+            end
+        end)
     end
     
-    Character.Parent.ChildRemoved:Connect(function(Char)
-        if Character == Char then
-            Holder:Destroy()
-            table.remove(Instances,table.find(Instances,Player))
-        end
-    end)
+    if Chams then
+        MakeChams(Holder,Player.Name.."CHAMS",Player)
+    end
     
     table.insert(Instances,Player)
     Instances[Player] = Holder
@@ -133,9 +138,9 @@ function ESPLibrary:RemovePlayerESP(Player)
     end
 end
 
-function ESPLibrary:RemoveItemESP(Model)
+function ESPLibrary:RemovePartESP(Part)
     for i,v in pairs(Instances) do
-        if i == Model and string.find(v.Name,"Holder") then
+        if i == Part and string.find(v.Name,"Holder") then
             for _,c in pairs(ESPHolder:GetChildren()) do
                 if v == c then
                     c:Destroy()
