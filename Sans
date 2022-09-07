@@ -38,13 +38,8 @@ function MakeText(Parent,Text)
 end
 
 function MakePartChams(Parent,Name,Part)
-    local Chams = Instance.new("BoxHandleAdornment",Parent)
-    Chams.Name = Name
-    Chams.Adornee = Part
-    Chams.AlwaysOnTop = true
-    Chams.ZIndex = 10
-    Chams.Size = Part.Size
-    Chams.Transparency = 0.4
+    local Highlight = Instance.new("Highlight",Parent)
+    Highlight.Adornee = Parent
     
     return Chams
 end
@@ -78,7 +73,7 @@ function ESPLibrary:PartESP(Part,Text,Chams,Studs)
     end
     
     if Chams then
-        local Cham = MakeChams(Holder,Part.Name.."CHAMS",Part)
+        local Cham = MakePartChams(Holder,Part.Name.."CHAMS",Part)
     end
     
     Part.Parent.ChildRemoved:Connect(function(Removed)
