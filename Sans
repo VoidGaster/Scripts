@@ -5,7 +5,7 @@
 --// rinq#9949
 
 local Player = game.Players.LocalPlayer
-for i,v in next,game.Workspace:GetChildren() do
+for i,v in next,game.CoreGui:GetChildren() do
 	if v.Name == "ESPHolder" then
 		v:Destroy()
 	end
