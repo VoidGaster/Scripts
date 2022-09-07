@@ -5,7 +5,11 @@
 --// rinq#9949
 
 local Player = game.Players.LocalPlayer
-
+for i,v in next,game.Workspace:GetChildren() do
+	if v.Name == "ESPHolder" then
+		v:Destroy()
+	end
+end
 local ESPLibrary = {ESPInstances = {}}
 local Instances = ESPLibrary["ESPInstances"]
 
