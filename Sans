@@ -38,14 +38,13 @@ function MakeText(Parent,Text)
 end
 
 function MakePartChams(Parent,Name,Part)
-    local Chams = Instance.new("BoxHandleAdornment",Parent)
+    local Chams = Instance.new("Highlight", Parent)
     Chams.Name = Name
-    Chams.Adornee = Part
+    Chams.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
     Chams.AlwaysOnTop = true
-    Chams.ZIndex = 10
-    Chams.Size = Part.Size
-    Chams.Transparency = 0.4
-    
+    Chams.FillColor = Color3.fromRGB(0, 0, 255)
+    Chams.FillTransparency = 0.25
+    Chams.FillTransparency = 0.5
     return Chams
 end
 
