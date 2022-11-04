@@ -739,11 +739,9 @@ end
 function RayfieldLibrary:CreateWindow(Settings)
 	local Passthrough = false
 	Topbar.Title.Text = Settings.Name
-	Main.Size = UDim2.new(0, Settings.X, 0, Settings.Y)
-    Settings.X = Settings.X or 500
-    Settings.Y = Settings.Y or 475
-    _G.XSize = Settings.X
-    _G.YSize = Settings.Y
+	Main.Size = UDim2.new(0, _G.XSize, 0, _G.YSize)
+    _G.XSize = Settings.X or 500
+    _G.YSize = Settings.Y or 475
 	Main.Visible = true
 	Main.BackgroundTransparency = 1
 	LoadingFrame.Title.TextTransparency = 1
