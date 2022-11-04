@@ -739,7 +739,7 @@ end
 function RayfieldLibrary:CreateWindow(Settings)
 	local Passthrough = false
 	Topbar.Title.Text = Settings.Name
-	Main.Size = UDim2.new(0, 450, 0, 260)
+	Main.Size = UDim2.new(0, Settings.X, 0, Settings.Y)
     Settings.X = Settings.X or 500
     Settings.Y = Settings.Y or 475
 	Main.Visible = true
