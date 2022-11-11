@@ -232,12 +232,12 @@ function library:CreateWatermark(name, position)
     return watermark
 end
 
-function library:CreateWindow(name, size, hidebutton)
+function library:CreateWindow(options)
     local window = { }
-
-    window.name = name or ""
-    window.size = UDim2.new(0, size.X, 0, size.Y)
-    window.hidebutton = hidebutton or Enum.KeyCode.Delete
+utility.table(options)
+    window.name = options.name or ""
+    window.size = UDim2.fromOffset(sizeX, sizeY)
+    window.hidebutton = options.hidebutton or Enum.KeyCode.Delete
     window.theme = library.theme
 
     local updateevent = Instance.new("BindableEvent")
