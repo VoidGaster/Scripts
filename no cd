@@ -1,1 +1,110 @@
-local f=string.byte;local h=string.char;local c=string.sub;local r=table.concat;local l=table.insert;local s=math.ldexp;local E=getfenv or function()return _ENV end;local l=setmetatable;local A=select;local t=unpack or table.unpack;local i=tonumber;local function u(d)local e,n,a="","",{}local o=256;local t={}for l=0,o-1 do t[l]=h(l)end;local l=1;local function f()local e=i(c(d,l,l),36)l=l+1;local n=i(c(d,l,l+e-1),36)l=l+e;return n end;e=h(f())a[1]=e;while l<#d do local l=f()if t[l]then n=t[l]else n=e..c(e,1,1)end;t[o]=e..c(n,1,1)a[#a+1],e,o=n,n,o+1 end;return table.concat(a)end;local i=u('25024X27524X25227625Y25W25H27A26725J24X25127626726625U25X24Z24W27G27625I25S26025H24X27427525D25U25S26526524X24H27624J25A27627O27625B28824X24Z24X23L24R27628E24Y24X28628C28A28C28E24124027627528E25328924X25424X27O27O25124427628Z29229427528727O28M27527H27625728C29B28727527W28D28K28X27624U28I29027G29824X29N27524128N29S27524L28T29L25D27S25F25E27P27525Y25S26425W24X29G27526U27B26A25W25F25J26025U2AE27827526926525S25K2AL2A825627627127K2802AT2AV2AL28Y2762B42AW25F26U25G26029V27626X26C26T2B727526Q26626626525X26625I2672A829L26V25F2AC2AE2AZ2AH27B26Q2612602BP25F25W2672BF27526W25E26O24X2C024X26W26425S27A26R25G25H25H2662C929E24X2732BY29O27521T23Y27727626B25W25E2C226T2CW27526P2BK24X2C325S2BX25U25H2B62CG2D22642662DG26S25J2C827U2AG24X26V2602C72AK2AM2B625327625G2672A525U26224X24628524V29Z24J27527O28E29X2EC29S28K2EB2BF2CS28C28K28Q2EG27O27429Y29S27O2DZ2ES2912D02EW29S25524X2EZ27O28Z2F32AF28T2ED28T2FA28D2A927524529S2412DZ27427H2AZ24J2EB2782592A327V2D028V2EQ24X2A22EX2932762FW29T2762FF27O28R2FR27H25827524S24X2DZ28U28F2752DZ28B2872842GB2832FR2EJ2782EE2F22752782782EI27528Z2EL2GR2B72EO2D02782ER2GY27824G2GQ2H128L2H72GS24X24I2H92B72A22FA29G2GC28T28Z2DR2762AR29S2532FF27528B2F92FY2HS2A02ES2A02FA');local o=bit and bit.bxor or function(l,n)local e,o=1,0 while l>0 and n>0 do local c,a=l%2,n%2 if c~=a then o=o+e end l,n,e=(l-c)/2,(n-a)/2,e*2 end if l<n then l=n end while l>0 do local n=l%2 if n>0 then o=o+e end l,e=(l-n)/2,e*2 end return o end local function n(n,l,e)if e then local l=(n/2^(l-1))%2^((e-1)-(l-1)+1);return l-l%1;else local l=2^(l-1);return(n%(l+l)>=l)and 1 or 0;end;end;local l=1;local function e()local e,c,a,n=f(i,l,l+3);e=o(e,177)c=o(c,177)a=o(a,177)n=o(n,177)l=l+4;return(n*16777216)+(a*65536)+(c*256)+e;end;local function d()local e=o(f(i,l,l),177);l=l+1;return e;end;local function a()local n,e=f(i,l,l+2);n=o(n,177)e=o(e,177)l=l+2;return(e*256)+n;end;local function X()local o=e();local l=e();local c=1;local o=(n(l,1,20)*(2^32))+o;local e=n(l,21,31);local l=((-1)^n(l,32));if(e==0)then if(o==0)then return l*0;else e=1;c=0;end;elseif(e==2047)then return(o==0)and(l*(1/0))or(l*(0/0));end;return s(l,e-1023)*(c+(o/(2^52)));end;local s=e;local function F(e)local n;if(not e)then e=s();if(e==0)then return'';end;end;n=c(i,l,l+e-1);l=l+e;local e={}for l=1,#n do e[l]=h(o(f(c(n,l,l)),177))end return r(e);end;local l=e;local function r(...)return{...},A('#',...)end local function u()local h={};local i={};local l={};local f={h,i,nil,l};local l=e()local c={}for n=1,l do local e=d();local l;if(e==2)then l=(d()~=0);elseif(e==1)then l=X();elseif(e==0)then l=F();end;c[n]=l;end;f[3]=d();for f=1,e()do local l=d();if(n(l,1,1)==0)then local o=n(l,2,3);local t=n(l,4,6);local l={a(),a(),nil,nil};if(o==0)then l[3]=a();l[4]=a();elseif(o==1)then l[3]=e();elseif(o==2)then l[3]=e()-(2^16)elseif(o==3)then l[3]=e()-(2^16)l[4]=a();end;if(n(t,1,1)==1)then l[2]=c[l[2]]end if(n(t,2,2)==1)then l[3]=c[l[3]]end if(n(t,3,3)==1)then l[4]=c[l[4]]end h[f]=l;end end;for l=1,e()do i[l-1]=u();end;return f;end;local function s(l,e,f)local n=l[1];local e=l[2];local l=l[3];return function(...)local c=n;local d=e;local o=l;local r=r local n=1;local a=-1;local u={};local i={...};local h=A('#',...)-1;local l={};local e={};for l=0,h do if(l>=o)then u[l-o]=i[l+1];else e[l]=i[l+1];end;end;local l=h-o+1 local l;local o;while true do l=c[n];o=l[1];if o<=20 then if o<=9 then if o<=4 then if o<=1 then if o>0 then if not e[l[2]]then n=n+1;else n=l[3];end;else e[l[2]]=s(d[l[3]],nil,f);end;elseif o<=2 then e[l[2]]=e[l[3]];elseif o==3 then e[l[2]]=s(d[l[3]],nil,f);else e[l[2]]=f[l[3]];end;elseif o<=6 then if o>5 then local n=l[2];local o=e[l[3]];e[n+1]=o;e[n]=o[l[4]];else local n=l[2]e[n]=e[n](t(e,n+1,l[3]))end;elseif o<=7 then if not e[l[2]]then n=n+1;else n=l[3];end;elseif o==8 then local o=l[2];local n=e[l[3]];e[o+1]=n;e[o]=n[l[4]];else e[l[2]]=l[3];end;elseif o<=14 then if o<=11 then if o>10 then local o=l[2];local a=l[4];local c=o+2 local o={e[o](e[o+1],e[c])};for l=1,a do e[c+l]=o[l];end;local o=o[1]if o then e[c]=o n=l[3];else n=n+1;end;else e[l[2]]();end;elseif o<=12 then do return end;elseif o>13 then local l=l[2]e[l]=e[l]()else local l=l[2]local o,n=r(e[l](e[l+1]))a=n+l-1 local n=0;for l=l,a do n=n+1;e[l]=o[n];end;end;elseif o<=17 then if o<=15 then e[l[2]]=f[l[3]];elseif o>16 then local l=l[2]local o,n=r(e[l](e[l+1]))a=n+l-1 local n=0;for l=l,a do n=n+1;e[l]=o[n];end;else local l=l[2]e[l]=e[l]()end;elseif o<=18 then e[l[2]]=l[3];elseif o>19 then local l=l[2]e[l](t(e,l+1,a))else n=l[3];end;elseif o<=30 then if o<=25 then if o<=22 then if o==21 then e[l[2]][l[3]]=e[l[4]];else local l=l[2]e[l](t(e,l+1,a))end;elseif o<=23 then e[l[2]]();elseif o>24 then e[l[2]]=e[l[3]];else e[l[2]][l[3]]=e[l[4]];end;elseif o<=27 then if o>26 then e[l[2]]=e[l[3]][l[4]];else e[l[2]][l[3]]=l[4];end;elseif o<=28 then local o=l[2]local c={e[o](t(e,o+1,a))};local n=0;for l=o,l[4]do n=n+1;e[l]=c[n];end elseif o>29 then local o;local d;local h,s;local i;local o;e[l[2]]=f[l[3]];n=n+1;l=c[n];e[l[2]]=f[l[3]];n=n+1;l=c[n];o=l[2];i=e[l[3]];e[o+1]=i;e[o]=i[l[4]];n=n+1;l=c[n];e[l[2]]=l[3];n=n+1;l=c[n];o=l[2]e[o]=e[o](t(e,o+1,l[3]))n=n+1;l=c[n];e[l[2]]=e[l[3]][l[4]];n=n+1;l=c[n];e[l[2]]=e[l[3]][l[4]];n=n+1;l=c[n];e[l[2]]=e[l[3]][l[4]];n=n+1;l=c[n];e[l[2]]=e[l[3]][l[4]];n=n+1;l=c[n];e[l[2]]=e[l[3]][l[4]];n=n+1;l=c[n];o=l[2];i=e[l[3]];e[o+1]=i;e[o]=i[l[4]];n=n+1;l=c[n];o=l[2]h,s=r(e[o](e[o+1]))a=s+o-1 d=0;for l=o,a do d=d+1;e[l]=h[d];end;n=n+1;l=c[n];o=l[2]h={e[o](t(e,o+1,a))};d=0;for l=o,l[4]do d=d+1;e[l]=h[d];end n=n+1;l=c[n];n=l[3];else local i;local s,h;local d;local o;e[l[2]]={};n=n+1;l=c[n];e[l[2]][l[3]]=l[4];n=n+1;l=c[n];e[l[2]][l[3]]=e[l[4]];n=n+1;l=c[n];e[l[2]]=f[l[3]];n=n+1;l=c[n];o=l[2];d=e[l[3]];e[o+1]=d;e[o]=d[l[4]];n=n+1;l=c[n];e[l[2]]=l[3];n=n+1;l=c[n];o=l[2]e[o]=e[o](t(e,o+1,l[3]))n=n+1;l=c[n];e[l[2]]=e[l[3]][l[4]];n=n+1;l=c[n];e[l[2]]=e[l[3]][l[4]];n=n+1;l=c[n];e[l[2]]=e[l[3]][l[4]];n=n+1;l=c[n];o=l[2];d=e[l[3]];e[o+1]=d;e[o]=d[l[4]];n=n+1;l=c[n];e[l[2]]=f[l[3]];n=n+1;l=c[n];e[l[2]]=e[l[3]];n=n+1;l=c[n];o=l[2]s,h=r(e[o](e[o+1]))a=h+o-1 i=0;for l=o,a do i=i+1;e[l]=s[i];end;n=n+1;l=c[n];o=l[2]e[o](t(e,o+1,a))end;elseif o<=35 then if o<=32 then if o>31 then do return end;else local l=l[2]e[l](e[l+1])end;elseif o<=33 then e[l[2]]=e[l[3]][l[4]];elseif o==34 then local l=l[2]e[l](e[l+1])else e[l[2]][l[3]]=l[4];end;elseif o<=38 then if o<=36 then local c=l[2];local a=l[4];local o=c+2 local c={e[c](e[c+1],e[o])};for l=1,a do e[o+l]=c[l];end;local c=c[1]if c then e[o]=c n=l[3];else n=n+1;end;elseif o>37 then e[l[2]]={};else n=l[3];end;elseif o<=39 then e[l[2]]={};elseif o==40 then local n=l[2]local c={e[n](t(e,n+1,a))};local o=0;for l=n,l[4]do o=o+1;e[l]=c[o];end else local n=l[2]e[n]=e[n](t(e,n+1,l[3]))end;n=n+1;end;end;end;return s(u(),{},E())();
+-- bypass from BlastingStone#8878
+if game.PlaceId == 5771467270 or game.PlaceId == 8221489139 then
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/BlastingStone/MyLuaStuff/master/ttd3bypass.lua"))()
+	task.wait(0/1)
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/BlastingStone/MyLuaStuff/master/universal_antisteal_bypass.lua"))()
+else
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/BlastingStone/MyLuaStuff/master/universal_antisteal_bypass.lua"))()
+end
+
+local screenxD = Instance.new("ScreenGui",game.CoreGui)
+screenxD.DisplayOrder = 500
+screenxD.ResetOnSpawn = false
+screenxD.Name = "🗿"
+local drag = Instance.new("Frame",screenxD)
+drag.BackgroundColor3 = Color3.fromRGB(114,137,218)
+drag.BorderSizePixel = 0
+drag.Position = UDim2.new(0.107,0,0.216,0)
+drag.Size = UDim2.new(0,256,0,20)
+local scroll = Instance.new("ScrollingFrame",drag)
+scroll.BackgroundColor3 = Color3.fromRGB(44,47,51)
+scroll.BorderSizePixel = 0
+scroll.Position = UDim2.new(0,0,1,0)
+scroll.Size = UDim2.new(1,0,0,319)
+scroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+scroll.ScrollBarThickness = 4
+local uilist = Instance.new("UIListLayout",scroll)
+uilist.Padding = UDim.new(0,1)
+
+local UIS = game:GetService("UserInputService")
+local function dragify(Frame,boool)
+	local frametomove = Frame
+	local dragToggle,dragInput,dragStart,startPos
+	local dragSpeed = 0
+	local function updateInput(input)
+		local Delta = input.Position - dragStart
+		frametomove.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
+	end
+	Frame.InputBegan:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and UIS:GetFocusedTextBox() == nil then
+			dragToggle = true
+			dragStart = input.Position
+			startPos = frametomove.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragToggle = false
+				end
+			end)	
+		end
+	end)
+	Frame.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	UIS.InputChanged:Connect(function(input)
+		if input == dragInput and dragToggle then
+			updateInput(input)
+		end
+	end)
+end
+dragify(drag)
+
+local function createbutton(id)
+	local str = string.match(tostring(id) , "%d+")
+	local button = Instance.new("TextButton",scroll)
+	button.BorderSizePixel = 0
+	button.BackgroundColor3 = Color3.fromRGB(35,39,42)
+	button.Size = UDim2.new(1,0,0,50)
+	button.Text = ""
+	local name = Instance.new("TextLabel",button)
+	name.BackgroundTransparency = 1
+	name.Size = UDim2.new(1,0,0.5,0)
+	name.TextSize = 16
+	name.Font = Enum.Font.Gotham
+	name.TextColor3 = Color3.fromRGB(255,255,255)
+	name.TextXAlignment = Enum.TextXAlignment.Left
+	local id = name:Clone()
+	id.Parent = button
+	id.AnchorPoint = Vector2.new(0,1)
+	id.Position = UDim2.new(0,0,1,0)
+	id.Text = str
+	name.Text = game:GetService("MarketplaceService"):GetProductInfo(tonumber(str)).Name
+	button.Activated:Connect(function()
+		setclipboard(game:GetService("MarketplaceService"):GetProductInfo(tonumber(str)).Name .." : "..str)
+	end)
+end
+
+local animationtabl = {}
+
+while true do
+	local localPlayer = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid")
+	if localPlayer then
+		local a = localPlayer:GetPlayingAnimationTracks()
+		for i, track in pairs(a) do
+			task.spawn(function()
+				local pass = true
+				for _,v in pairs(animationtabl) do
+					if v == track.Animation.AnimationId then
+						pass = false
+					end
+				end
+				if pass then
+					table.insert(animationtabl,track.Animation.AnimationId)
+					createbutton(track.Animation.AnimationId)
+				end
+			end)
+		end
+	end
+	task.wait()
+end
